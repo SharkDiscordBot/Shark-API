@@ -1,6 +1,6 @@
-# しゃーく
+# しゃーく Backend
 
-多機能DiscordBot
+しゃーくBotのBackendプログラム
 
 ## 前提要件
 
@@ -15,12 +15,6 @@
 - MacOS 13.0.1 (Intel)
 - kubernetes v1.25.3
 - Nodejs v18.12.1
-
-## API Docs
-
-### 認証
-
-下記のアドレス以外は認証が必要です
 
 ## Licence
 
