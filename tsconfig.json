@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2021"],
+    "module": "commonjs",
+    "target": "ES2021",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@configs/*": ["./configs/*"]
+    },
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types",
+
+      // log4js
+      "node_modules/log4js/types"
+    ],
+
+    
+    // コーティングの設定類
+    "noUnusedLocals": true, // 使用されていない変数がある場合エラーにする
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true, // importの大文字小文字を区別する
+    "resolveJsonModule": true
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

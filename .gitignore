@@ -1,0 +1,19 @@
+# 各エディタの設定ファイルなど
+
+.vscode/
+
+# osのファイル
+.DS_Store
+Thumbs.db
+
+# compile files
+dist/
+
+# nodejs
+node_modules/
+
+# config
+configs/config.json
+
+# Log
+logs/

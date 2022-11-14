@@ -1,0 +1,10 @@
+{
+  "server": {
+    "port": 8080,
+    "mongodb_url": "mongodb://your_db_addr"
+  },
+  "settings": {
+    "debug_mode": true,
+    "debug_logger": false
+  }
+}
