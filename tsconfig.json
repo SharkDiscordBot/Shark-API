@@ -7,14 +7,12 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@configs/*": ["./configs/*"]
+      "@configs/*": ["./configs/*"],
+      "@root/*": ["./*"]
     },
     "typeRoots": [
       "node_modules/@types",
-      "src/@types",
-
-      // log4js
-      "node_modules/log4js/types"
+      "src/@types"
     ],
 
     

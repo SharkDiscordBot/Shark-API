@@ -10,6 +10,6 @@ declare module '@configs/config.json' {
       }
   }
 
-  const value: JSONType;
-  export = value;
+  const config: JSONType;
+  export = config;
 }

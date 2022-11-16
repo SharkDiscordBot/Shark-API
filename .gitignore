@@ -1,5 +1,4 @@
 # 各エディタの設定ファイルなど
-
 .vscode/
 
 # osのファイル
@@ -17,3 +16,6 @@ configs/config.json
 
 # Log
 logs/
+
+# test files
+test/
