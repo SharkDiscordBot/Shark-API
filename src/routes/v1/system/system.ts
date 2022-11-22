@@ -2,13 +2,15 @@
 //import * as config from '@configs/config.json';
 import * as express from 'express';
 import * as Error from '@/modules/errorException';
-import systems from '@/routes/v1/system/system';
-
+import info from '@/routes/v1/system/info';
+import test from '@/routes/v1/system/test';
 const router = express.Router();
 
 router.get("/", (req, res, next)  => {
   Error.HttpException.NotFound(res);
 });
 
-router.use("/systems", systems);
+router.use("/info", info);
+router.use("/test", test);
+
 export default router;
