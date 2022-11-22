@@ -4,8 +4,10 @@
   "description": "Shark API",
   "main": "app.js",
   "scripts": {
-    "dev": "ts-node src/app",
-    "start": "tsc && node utils/remove_dist_config && node dist/src/app"
+    "dev": "eslint src && ts-node src/app",
+    "start": "eslint src && tsc && node utils/remove_dist_config && node dist/src/app",
+    "check": "eslint src",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -41,6 +43,9 @@
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",
     "@types/express": "^4.17.14",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0"
   }

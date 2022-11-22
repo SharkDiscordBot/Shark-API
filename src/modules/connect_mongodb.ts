@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose';
-import * as config from '@configs/config.json';
-import { Logger } from '@/modules/logger';
+import * as mongoose from "mongoose";
+import * as config from "@configs/config.json";
+import { Logger } from "@/modules/logger";
 
 export async function connect_mongodb(){
   await mongoose.connect(config.server.mongodb_url).catch((error: string) => {
@@ -9,5 +9,5 @@ export async function connect_mongodb(){
     Logger.SystemError("configの値,サーバーのアクセス制御が正しいか確認してください");
     process.exit(1);
   });
-  Logger.SystemInfo("データベースの接続に成功しました")
+  Logger.SystemInfo("データベースの接続に成功しました");
 }

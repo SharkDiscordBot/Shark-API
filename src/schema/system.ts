@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
-let Schema = new mongoose.Schema({
+const Schema = new mongoose.Schema({
   _id: {
     type: String
   },
@@ -10,8 +10,8 @@ let Schema = new mongoose.Schema({
   local_branch: {
     type: String
   }
-})
+});
 
-let model = mongoose.model('system', Schema);
+const model = mongoose.model("system", Schema);
 
 export default model;
