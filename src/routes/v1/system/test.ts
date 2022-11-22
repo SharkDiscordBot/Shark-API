@@ -13,7 +13,7 @@ router.get("/", (req, res)  => {
 });
 
 router.post("/", (req, res)  => {
-  Error.HttpException.BadRequest(res);
+  Error.HttpException.BadRequest(res)
 });
 
 export default router;
