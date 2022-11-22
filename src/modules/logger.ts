@@ -41,33 +41,33 @@ log4js.configure({
 export class Logger{
   
   public static SystemInfo(msg: string): void {
-    let logger = log4js.getLogger("system");
+    const logger = log4js.getLogger("system");
     logger.info(msg);
   }
 
   public static SystemWarn(msg: string): void {
-    let logger = log4js.getLogger("system");
+    const logger = log4js.getLogger("system");
     logger.warn(msg);
   }
 
   public static SystemError(msg: string): void {
-    let logger = log4js.getLogger("error");
+    const logger = log4js.getLogger("error");
     logger.error(msg);
   }
 
   public static AccessInfo(msg: string): void {
-    let logger = log4js.getLogger("access");
+    const logger = log4js.getLogger("access");
     logger.info(msg);
   }
 
   public static AccessWarn(msg: string): void {
-    let logger = log4js.getLogger("access");
+    const logger = log4js.getLogger("access");
     logger.warn(msg);
   }
 
   // 404エラーなどで使用することを想定, システムの処理エラーなどはSystemErrorを使う
   public static AccessError(msg: string): void {
-    let logger = log4js.getLogger("access");
+    const logger = log4js.getLogger("access");
     logger.error(msg);
   }
 }

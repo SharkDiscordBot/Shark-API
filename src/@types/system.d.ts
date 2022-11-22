@@ -1,4 +1,4 @@
-declare module '@root/system.json' {
+declare module "@root/system.json" {
   type JSONType = {
     version: string;
     beta: boolean;

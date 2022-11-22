@@ -1,4 +1,4 @@
-declare module '@configs/config.json' {
+declare module "@configs/config.json" {
   type JSONType = {
       server: {
         port: number;
