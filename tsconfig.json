@@ -14,8 +14,6 @@
       "node_modules/@types",
       "src/@types"
     ],
-
-    
     // コーティングの設定類
     "noUnusedLocals": true, // 使用されていない変数がある場合エラーにする
     "strict": true,

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "ts-node src/app",
-    "start": "tsc && node dist/src/app"
+    "start": "tsc && node utils/remove_dist_config && node dist/src/app"
   },
   "repository": {
     "type": "git",
