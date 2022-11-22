@@ -3,10 +3,14 @@ declare module '@configs/config.json' {
       server: {
         port: number;
         mongodb_url: string;
-      }
+      },
       settings: {
         debug_mode: boolean;
         debug_logger: boolean;
+      },
+      maintenance_mode: {
+        enable: boolean,
+        res_status: number
       }
   }
 

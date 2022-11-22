@@ -6,5 +6,9 @@
   "settings": {
     "debug_mode": true,
     "debug_logger": false
+  },
+  "maintenance_mode": {
+    "enable": false,
+    "res_status": 503
   }
 }

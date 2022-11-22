@@ -71,12 +71,24 @@ app.use(helmet());
 // TODO: xss対策
 
 
+if(config.maintenance_mode.enable != true){
 // route
 app.use("/v1", api_v1);
 
 app.use(function(req, res, next) {
   Error.HttpException.NotFound(res);
 });
+} else {
+  Logger.SystemWarn("メンテナンスモードが有効です")
+  app.use(function(req, res, next) {
+    let now_time = new Date().toLocaleString();
+    let message = {"time": now_time, "status": "error", "http_status": config.maintenance_mode.res_status, "message": "Server Maintenance"};
+
+    res.status(config.maintenance_mode.res_status);
+    res.header('Content-Type', 'application/json; charset=utf-8');
+    res.send(message);
+  });
+}
 
 
 async function SystemData_DB_write() {
