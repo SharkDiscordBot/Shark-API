@@ -4,8 +4,10 @@
   "description": "Shark API",
   "main": "app.js",
   "scripts": {
-    "dev": "ts-node src/app",
-    "start": "tsc && node utils/remove_dist_config && node dist/src/app"
+    "dev": "eslint src && ts-node src/app",
+    "start": "eslint src && tsc && node utils/remove_dist_config && node dist/src/app",
+    "check": "eslint src",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,26 @@
+name: check code(Nodejs v19)
+
+on: pull_request
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: nodejs Setup v19
+      uses: actions/setup-node@v1
+      with:
+        node-version: 19.x
+    - name: package install
+      run: npm i
+    - name: ci Setup
+      run: npm ci
+
+    - name: run reviewdog
+      uses: reviewdog/action-eslint@v1
+      with:
+        reporter: dog
+        eslint_flags: 'src/'
+    - name: run check build
+      run: npm run build
