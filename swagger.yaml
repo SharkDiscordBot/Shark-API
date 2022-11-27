@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: Shark API - v0.0.1(beta)
+  description: |-
+    このドキュメントはSharkBot用APIのドキュメントです
+    
+    関連リンク:
+    - [Shark-API](https://github.com/SharkDiscordBot/Shark-API/)
+  license:
+    name: MIT Licence
+    url: https://github.com/SharkDiscordBot/Shark-API/blob/develop/LICENCE
+  version: 0.0.1(beta)
+  
+servers:
+  - url: http://localhost:8080/v1
+    description: (default, v1)
+  - url: https://dev-api.purapetino.com/v1
+    description: (開発用, v1)
+tags:
+  - name: System
+    description: APIシステムの情報の取得など
+  
+paths:
+  /systems/info:
+    get:
+      tags:
+        - System
+      summary: システム情報を取得します
+      description: 実行OS,バージョンなどを返却します
+      operationId: system-info
+      responses:
+        200:
+          description: "成功時レスポンス"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  os:
+                    type: "string"
+                  version:
+                    type: "string"
+                  hash:
+                    type: "string"
+                  branch:
+                    type: "string"
+                  time: 
+                    type: "string"
+                  status:
+                    type: "string"
+                  http_status: 
+                    type: "number"
+                  message:
+                    type: "string"
+                example:
+                  os: "Darwin"
+                  version: "0.0.1"
+                  hash: "3c82e9102eca76fd65ec285a1763fcc9463a8059"
+                  local_branch: "feat/swagger"
+                  time: "2022/11/23 21:16:19"
+                  status: "success"
+                  http_status: 200
+                  message: "none"
+        404:
+          description: "失敗時レスポンス"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        500:
+          description: "サーバーエラーレスポンス"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+components:
+  schemas:
+    NotFound:
+      type: "object"
+      properties:
+        time: 
+          type: "string"
+        status:
+          type: "string"
+        http_status: 
+          type: "number"
+        message:
+          type: "string"
+      example:
+        time: "2022/11/23 21:16:19"
+        status: "error"
+        http_status: 404
+        message: "NotFound"
+        
+    BadRequest:
+      type: "object"
+      properties:
+        time: 
+          type: "string"
+        status:
+          type: "string"
+        http_status: 
+          type: "number"
+        message:
+          type: "string"
+      example:
+        time: "2022/11/23 21:16:19"
+        status: "error"
+        http_status: 400
+        message: "BadRequest"
+     
+    Forbidden:
+      type: "object"
+      properties:
+        time: 
+          type: "string"
+        status:
+          type: "string"
+        http_status: 
+          type: "number"
+        message:
+          type: "string"
+      example:
+        time: "2022/11/23 21:16:19"
+        status: "error"
+        http_status: 403
+        message: "Forbidden"
+        
+    InternalServerError:
+      type: "object"
+      properties:
+        time: 
+          type: "string"
+        status:
+          type: "string"
+        http_status: 
+          type: "number"
+        message:
+          type: "string"
+      example:
+        time: "2022/11/23 21:16:19"
+        status: "error"
+        http_status: 500
+        message: "InternalServerError"

@@ -10,6 +10,8 @@ import * as Error from "@/modules/errorException";
 import * as exec from "child_process";
 import * as mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
+import * as swaggerUi from "swagger-ui-express";
+import * as YAML from "yamljs";
 
 // DB_Model
 import SystemModel from "@/schema/system";
@@ -37,6 +39,9 @@ app.use(log4js.connectLogger(app_logger, {level: "auto"}));
 //middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// 静的ファイル
+app.use(express.static("views"));
 
 // NoSQL injectionの対策
 app.use(mongoSanitize());
@@ -72,6 +77,10 @@ app.use(helmet());
 
 
 if(config.maintenance_mode.enable != true){
+// API docs
+const swagger_config = YAML.load("swagger.yaml");
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swagger_config));
 // route
 app.use("/v1", api_v1);
 
