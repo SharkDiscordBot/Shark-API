@@ -1,3 +1,4 @@
+import config = require("@configs/config.json");
 import * as log4js from "log4js";
 log4js.configure({
   "appenders": {
@@ -69,5 +70,16 @@ export class Logger{
   public static AccessError(msg: string): void {
     const logger = log4js.getLogger("access");
     logger.error(msg);
+  }
+
+  // debugLogger
+  public static Debug(msg: string): void {
+
+    if(config.settings.debug_logger == false){
+      return;
+    }
+    
+    const logger = log4js.getLogger("system");
+    logger.debug(msg);
   }
 }
