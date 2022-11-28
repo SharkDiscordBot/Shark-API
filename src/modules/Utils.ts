@@ -27,7 +27,7 @@ export class Utils {
     } else {
 
       let ping_cmd: string;
-      let ping: string;
+      let ping;
       let ping_cat;
       Logger.SystemInfo("os: " + this.get_os());
       if(this.get_os() == "windows"){
@@ -37,6 +37,12 @@ export class Utils {
         ping_cat = ping_cmd.indexOf("time"); 
         ping = ping_cmd.substring(ping_cat + 5);
         ping = ping.replace(/\r?\n/g, "");
+        ping = ping.replace(/ /g, "");
+        ping = ping.replace("ms", "");
+        ping = Number(ping);
+        ping = Math.ceil(ping);
+        ping = String(ping);
+        ping = ping + "ms";
         return ping;
       }
     }
@@ -72,9 +78,8 @@ export class Utils {
       }
 
       if(!config.settings.check_status.bot_status_URL.endsWith("/api/v1/status")){
-        Logger.SystemError("BotのステータスURLが正しくありません。URLの値にはAPIのエンドポイントを含む必要があります");
-        process.exit(1);
-      }
+        Logger.SystemError("BotのステータスURLが正しくありません。URLの値にはAPIのエンドポイントを含む必要があります。本番環境では正しく動作しない恐れがあります");
+      } 
 
       if(!config.settings.check_status.frontend_status_URL.startsWith("http")){
         Logger.SystemError("webサーバーのステータスURLが正しくありません。URLの値はhttpもしくはhttpsから始まる必要があります。");
@@ -82,8 +87,7 @@ export class Utils {
       }
 
       if(!config.settings.check_status.frontend_status_URL.endsWith("/api/v1/status")){
-        Logger.SystemError("WebサーバーのステータスURLが正しくありません。URLの値にはAPIのエンドポイントを含む必要があります");
-        process.exit(1);
+        Logger.SystemError("WebサーバーのステータスURLが正しくありません。URLの値にはAPIのエンドポイントを含む必要があります。本番環境では正しく動作しない恐れがあります");
       }
 
       Logger.Debug("Passing: Status URL");

@@ -1,11 +1,18 @@
 {
+  "_comment": "See: confg.md",
   "server": {
     "port": 8080,
     "mongodb_url": "mongodb://your_db_addr"
   },
   "settings": {
     "debug_mode": true,
-    "debug_logger": false
+    "debug_logger": false,
+    "check_status": {
+      "frontend_status_URL": "http://your_shark_frontend_addr/api/v1/status",
+      "bot_status_URL": "http://your_shark_frontend_addr/api/v1/status",
+      "enable": true,
+      "disabled_status": "up"
+    }
   },
   "maintenance_mode": {
     "enable": false,

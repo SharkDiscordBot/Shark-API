@@ -28,7 +28,16 @@ chmod 600 configs/config.json
 | key | Type | 説明 |
 | ---- | ---- | ------ |
 | debug_mode | Boolen | デバッグモードの有効,無効を切り替えます |
-| debug_logger | Boolen | この設定を有効にすると詳細なログを出力します *未実装,v1.0.0までに実装予定 |
+| debug_logger | Boolen | この設定を有効にすると詳細なログを出力します |
+
+### check_status
+
+| key | Type | 説明 |
+| ---- | ---- | ------ |
+| frontend_status_URL | String | フロントエンド([Shark-Frontend](https://github.com/SharkDiscordBot/Shark-Frontend)のステータス情報URLを指定します) ) |
+| frontend_status_URL | String | ([Shark-Bot](https://github.com/SharkDiscordBot/Shark-Bot)のステータス情報URLを指定します) ) |
+| enable | Boolen | この設定をfalseにするとステータスの参照を行いません(本番構成では有効にすることを推奨します) |
+| enable | Boolen | この設定はステータスの参照を行わない場合のステータスを設定します(up, warn, downのいずれか　) |
 
 ## maintenance
 
