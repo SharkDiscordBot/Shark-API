@@ -73,6 +73,95 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
+  /systems/status:
+    get:
+      tags:
+        - System
+      summary: ステータスを取得します
+      description: 空きメモリ,レイテンシ,システムステータスなどを返却します
+      operationId: system-status
+      responses:
+        200:
+          description: "成功時レスポンス"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  api_status:
+                    type: "object"
+                    properties:
+                      version: 
+                        type: "string"
+                        description: "APIサーバーのバージョン"
+                      status:
+                        type: "string"
+                        description: "APIサーバーのステータス up,warn,downのいずれか"
+                      ping: 
+                        type: "string"
+                        description: "APIサーバーのレイテンシ"
+                  bot_status:
+                    type: "object"
+                    properties:
+                      version: 
+                        type: "string"
+                        description: "Botサーバーのバージョン"
+                      status:
+                        type: "string"
+                        description: "Botサーバーのステータス up,warn,downのいずれか"
+                      ping: 
+                        type: "string"
+                        description: "Botサーバーのレイテンシ"
+                  frontend_status:
+                    type: "object"
+                    properties:
+                      version: 
+                        type: "string"
+                        description: "Webサーバーのバージョン"
+                      status:
+                        type: "string"
+                        description: "Webサーバーのステータス up,warn,downのいずれか"
+                      ping: 
+                        type: "string"
+                        description: "Webサーバーのレイテンシ"
+                  time: 
+                    type: "string"
+                    description: "処理開始時間"
+                  status:
+                    type: "string"
+                  http_status: 
+                    type: "number"
+                  message:
+                    type: "string"
+                example:
+                  api_status:
+                    version: "0.0.0"
+                    status: "down"
+                    ping: "0ms"
+                  bot_status:
+                    version: "0.0.1"
+                    status: "warn"
+                    ping: "15ms"
+                  frontend_status:
+                    version: "0.0.2"
+                    status: "up"
+                    ping: "29ms"
+                  time: "2022/11/23 21:16:19"
+                  status: "success"
+                  http_status: 200
+                  message: "none"
+        404:
+          description: "失敗時レスポンス"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        500:
+          description: "サーバーエラーレスポンス"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
 
 components:
   schemas:

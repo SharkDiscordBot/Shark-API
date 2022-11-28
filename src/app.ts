@@ -1,17 +1,20 @@
 import "module-alias/register";
-import { Logger } from "@/modules/logger";
+import { Logger } from "@/modules/Logger";
 import * as config from "@configs/config.json";
-import * as mongodb from "@/modules/connect_mongodb";
 import * as express from "express";
 import * as log4js from "log4js";
 import * as bodyParser from "body-parser";
 import api_v1 from "@/routes/v1";
-import * as Error from "@/modules/errorException";
+import * as Error from "@/modules/ErrorException";
 import * as exec from "child_process";
 import * as mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import * as swaggerUi from "swagger-ui-express";
 import * as YAML from "yamljs";
+import { Utils } from "@/modules/Utils";
+import * as system from "@root/system.json";
+import { run_min } from "@/modules/CronSystem";
+import * as cron from "node-cron"; 
 
 // DB_Model
 import SystemModel from "@/schema/system";
@@ -19,8 +22,10 @@ import SystemModel from "@/schema/system";
 
 Logger.SystemInfo("しゃーくBot Backend Server");
 
-// mongoDBに接続
-mongodb.connect_mongodb();
+// configの値をチェック
+Utils.CheckConfig();
+
+Utils.connect_mongodb();
 
 // APIの起動
 
@@ -134,4 +139,28 @@ async function SystemData_DB_write() {
 }
 
 SystemData_DB_write();
+
+// 初回更新
+run_min.CheckStatus();
+
+// cron system
+cron.schedule("* * * * *", () => {
+  run_min.CheckStatus();
+});
+
 export default app;
+
+// システムの詳細を表示
+Logger.SystemInfo("======== しゃーくBackendServer ========");
+Logger.SystemInfo("Version: " + system.version);
+if(system.beta == true){
+  Logger.SystemWarn("現在のバージョンはベータ版です");
+} else {
+  Logger.SystemInfo("現在のバージョンは安定版です");
+}
+Logger.SystemInfo("使用中のNodejsバージョン: " + process.version);
+Logger.SystemInfo("使用中のOS: " + Utils.get_os());
+if(Utils.get_os() == "windows"){
+  Logger.SystemWarn("Windowsでの実行は推奨しません。詳細はドキュメントをご確認ください");
+}
+Logger.SystemInfo("=======================================");

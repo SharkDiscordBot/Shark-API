@@ -17,9 +17,21 @@
 - kubernetes v1.25.3
 - Nodejs v18.12.1
 
-## API Docs
+## 推奨動作確認
 
-注: このドキュメントは簡易版です
+下記の環境での実行を推奨します
+
+- 各Linuxディストリビューション
+- MacOS
+- WSL2 (Ubuntu)
+
+### Windowsで本プログラムを実行される場合について
+
+Windowsで実行される際はWSLを使用されることを推奨します。WSLを使用されない場合下記の制約が発生します
+
+- APIサーバー内で測定するレイテンシが常に0msとなります(`/v1/system/status` など)
+
+## API Docs
 
 ### すべてのリクエストに対して返却されるデータ
 
@@ -29,6 +41,10 @@
 | time | String | 処理開始時刻を返却します |
 | http_status  | int | HTTPステータスコードを返却します |
 | message | String | メッセージを返却します。返却する内容がない場合noneが返却されます |
+
+### その他ドキュメント
+
+APIサーバーを起動し `/docs` を確認するか `swagger.yaml` をSwaggerEditorなどでご確認ください
 
 ## Licence
 
