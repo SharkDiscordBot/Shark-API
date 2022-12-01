@@ -5,9 +5,12 @@
   "main": "app.js",
   "scripts": {
     "dev": "eslint src && ts-node src/app",
-    "start": "eslint src && tsc && node utils/remove_dist_config && node dist/src/app",
+    "start": "npm run check && npm run build && npm run update_license && npm run run_startup_utils && npm run compile_file_run",
     "check": "eslint src",
-    "build": "tsc"
+    "build": "tsc",
+    "run_startup_utils": "node utils/remove_dist_config",
+    "compile_file_run": "node dist/src/app",
+    "update_license": "license-checker --production --direct --customPath ./license-format.json --json --out ./views/public/licenses.json"
   },
   "repository": {
     "type": "git",
@@ -28,10 +31,12 @@
     "@types/yamljs": "^0.2.31",
     "body-parser": "^1.20.1",
     "child_process": "^1.0.2",
+    "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-mongo-sanitize": "^2.2.0",
     "fs": "^0.0.1-security",
     "helmet": "^6.0.0",
+    "license-checker": "^25.0.1",
     "log4js": "^6.7.0",
     "module-alias": "^2.2.2",
     "mongoose": "^6.7.2",

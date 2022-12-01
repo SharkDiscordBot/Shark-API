@@ -25,5 +25,5 @@ if(!fs.existsSync(__dirname + "/../configs/config.json")){
 if(!fs.existsSync(__dirname + "/../dist/configs/config.json")){
   logger.warn("distファイルにconfigがありませんでした");
 } else {
-  fs.unlinkSync(__dirname + "/../dist/configs/config.json")
+  fs.unlinkSync(__dirname + "/../dist/configs/config.json");
 }
