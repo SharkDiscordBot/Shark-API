@@ -1,5 +1,3 @@
-//import { Logger } from "@/modules/logger";
-//import * as config from "@configs/config.json";
 import * as express from "express";
 import * as Error from "@/modules/ErrorException";
 import info from "@/routes/v1/system/info";

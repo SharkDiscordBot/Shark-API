@@ -4,7 +4,6 @@ import * as config from "@configs/config.json";
 import * as express from "express";
 import * as log4js from "log4js";
 import * as bodyParser from "body-parser";
-import api_v1 from "@/routes/v1";
 import * as Error from "@/modules/ErrorException";
 import * as exec from "child_process";
 import * as mongoSanitize from "express-mongo-sanitize";
@@ -19,6 +18,11 @@ import * as cron from "node-cron";
 // DB_Model
 import SystemModel from "@/schema/system";
 //end
+
+// routes
+import api_v1 from "@/routes/v1";
+import licenses from "@/routes/licenses";
+// end
 
 Logger.SystemInfo("しゃーくBot Backend Server");
 
@@ -46,7 +50,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // 静的ファイル
-app.use(express.static("views"));
+app.use(express.static("views/public"));
+app.set("view engine", "ejs");
 
 // NoSQL injectionの対策
 app.use(mongoSanitize());
@@ -86,8 +91,10 @@ if(config.maintenance_mode.enable != true){
 const swagger_config = YAML.load("swagger.yaml");
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swagger_config));
+app.use("/jquery", express.static(__dirname + "/../node_modules/jquery/dist/"));
 // route
 app.use("/v1", api_v1);
+app.use("/licenses", licenses);
 
 app.use(function(req, res) {
   Error.HttpException.NotFound(res);
