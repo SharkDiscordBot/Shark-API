@@ -91,7 +91,6 @@ if(config.maintenance_mode.enable != true){
 const swagger_config = YAML.load("swagger.yaml");
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swagger_config));
-app.use("/jquery", express.static(__dirname + "/../node_modules/jquery/dist/"));
 // route
 app.use("/v1", api_v1);
 app.use("/licenses", licenses);
