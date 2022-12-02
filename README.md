@@ -1,6 +1,6 @@
-# しゃーく Backend
+# しゃーく API
 
-しゃーくBotのBackendプログラム
+しゃーくBotのAPIシステム
 
 ## 前提要件
 

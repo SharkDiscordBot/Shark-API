@@ -24,7 +24,7 @@ import api_v1 from "@/routes/v1";
 import licenses from "@/routes/licenses";
 // end
 
-Logger.SystemInfo("しゃーくBot Backend Server");
+Logger.SystemInfo("しゃーくBot API Server");
 
 // configの値をチェック
 Utils.CheckConfig();
@@ -157,7 +157,7 @@ cron.schedule("* * * * *", () => {
 export default app;
 
 // システムの詳細を表示
-Logger.SystemInfo("======== しゃーくBackendServer ========");
+Logger.SystemInfo("======== しゃーくAPIServer ========");
 Logger.SystemInfo("Version: " + system.version);
 if(system.beta == true){
   Logger.SystemWarn("現在のバージョンはベータ版です");
