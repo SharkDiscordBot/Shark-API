@@ -10,7 +10,7 @@
     "build": "tsc",
     "run_startup_utils": "node utils/remove_dist_config",
     "compile_file_run": "node dist/src/app",
-    "update_license": "license-checker --production --direct --customPath ./license-format.json --json --out ./views/public/licenses.json"
+    "update_license": "license-checker --production --direct --customPath ./list-license-format.json --json --out ./views/public/licenses.json"
   },
   "repository": {
     "type": "git",
