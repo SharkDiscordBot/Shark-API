@@ -14,7 +14,7 @@ import { Utils } from "@/utils/Utils";
 import * as system from "@root/system.json";
 import { run_min } from "@/modules/CronSystem";
 import * as cron from "node-cron"; 
-import { ConfigUtils } from "@/utils/ConfigUtils"
+import { ConfigUtils } from "@/utils/ConfigUtils";
 import * as SystemUtil from "@/utils/System";
 
 // DB_Model
