@@ -1,5 +1,6 @@
 import * as config from "@configs/config.json";
 import { Logger } from "@/modules/Logger";
+import * as fs from "fs";
 
 export class ConfigUtils {
   public static check_config() {
@@ -11,6 +12,31 @@ export class ConfigUtils {
       Logger.Debug("Passing: Port Number");
     }
     
+    if(config.server.ssl.ssl_port > 65535) {
+      Logger.SystemError("ポート番号が65535より大きいです");
+      process.exit(1);
+    } else {
+      Logger.Debug("Passing: HTTPS Port Number");
+    }
+
+    if(config.server.port == config.server.ssl.ssl_port) {
+      Logger.SystemError("HTTPSサーバーのポート番号とメインポート番号が同一です");
+      process.exit(1);
+    } else {
+      Logger.Debug("Passing: Port Number Check");
+    }
+    
+    if(config.server.ssl.enable == true) {
+      if(!fs.existsSync(config.server.ssl.key_path)) {
+        Logger.SystemError("SSL証明書が存在しません。ファイルのパスを確認してください");
+        process.exit(1);
+      }
+      if(!fs.existsSync(config.server.ssl.cert_path)) {
+        Logger.SystemError("SSL証明書が存在しません。ファイルのパスを確認してください");
+        process.exit(1);
+      }
+    }
+
     // mongoDBのURLが正しいか確認
     if(!config.server.mongodb_url.startsWith("mongodb")){
       Logger.SystemError("mongoDBのURLが正しくありません。configを修正してください");

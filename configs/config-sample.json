@@ -2,7 +2,13 @@
   "_comment": "See: confg.md",
   "server": {
     "port": 8080,
-    "mongodb_url": "mongodb://your_db_addr"
+    "mongodb_url": "mongodb://your_db_addr",
+    "ssl": {
+      "enable": false,
+      "key_path": "certkeys/cert_server.key",
+      "cert_path": "certkeys/cert_server.crt",
+      "ssl_port": 7070
+    }
   },
   "settings": {
     "debug_mode": true,

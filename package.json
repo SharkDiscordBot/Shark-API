@@ -36,6 +36,7 @@
     "express-mongo-sanitize": "^2.2.0",
     "fs": "^0.0.1-security",
     "helmet": "^6.0.0",
+    "https": "^1.0.0",
     "license-checker": "^25.0.1",
     "log4js": "^6.7.0",
     "module-alias": "^2.2.2",

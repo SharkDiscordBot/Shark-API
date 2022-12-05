@@ -3,6 +3,12 @@ declare module "@configs/config.json" {
       server: {
         port: number;
         mongodb_url: string;
+        ssl: {
+          enable: boolean;
+          key_path: string;
+          cert_path: string;
+          ssl_port: number;
+        }
       },
       settings: {
         debug_mode: boolean;

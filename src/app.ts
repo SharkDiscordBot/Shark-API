@@ -16,6 +16,8 @@ import { run_min } from "@/modules/CronSystem";
 import * as cron from "node-cron"; 
 import { ConfigUtils } from "@/utils/ConfigUtils";
 import * as SystemUtil from "@/utils/System";
+import * as https from "https";
+import * as fs from "fs";
 
 // DB_Model
 import SystemModel from "@/schema/system";
@@ -40,6 +42,7 @@ const app = express();
 app.listen(config.server.port, function() {
   Logger.SystemInfo("webサーバーを起動しました");
 });
+
 
 // APIサーバーの設定
 
@@ -109,6 +112,18 @@ app.use(function(req, res) {
     res.status(config.maintenance_mode.res_status);
     res.header("Content-Type", "application/json; charset=utf-8");
     res.send(message);
+  });
+}
+
+// HTTPSサーバーを起動
+if(config.server.ssl.enable == true) {
+  const ssl_options = {
+    key: fs.readFileSync(config.server.ssl.key_path),
+    cert: fs.readFileSync(config.server.ssl.cert_path)
+  };
+  const SSLServer = https.createServer(ssl_options, app);
+  SSLServer.listen(config.server.ssl.ssl_port, () => {
+    Logger.SystemInfo("SSLサーバーが起動しました");
   });
 }
 
