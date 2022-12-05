@@ -1,55 +1,8 @@
 import * as config from "@configs/config.json";
-import * as child from "child_process";
-import * as os from "os";
-import { Logger } from "./Logger";
-import * as mongoose from "mongoose";
+import { Logger } from "@/modules/Logger";
 
-export class Utils {
-
-  public static get_os() { 
-    if(os.platform() == "win32"){
-      return "windows";
-    }
-    
-    if(os.platform() == "darwin"){
-      return "mac";
-    }
-        
-    if(os.platform() == "linux"){
-      return "linux";
-    }
-    return "unknown";
-  }
-
-  public static ping(server_addr: string) {
-    if(!server_addr){
-      return "Error: address not found";
-    } else {
-
-      let ping_cmd: string;
-      let ping;
-      let ping_cat;
-      Logger.SystemInfo("os: " + this.get_os());
-      if(this.get_os() == "windows"){
-        return "0ms";
-      } else {
-        ping_cmd = child.execSync("ping -c 1 " + server_addr + " | grep time").toString();
-        ping_cat = ping_cmd.indexOf("time"); 
-        ping = ping_cmd.substring(ping_cat + 5);
-        ping = ping.replace(/\r?\n/g, "");
-        ping = ping.replace(/ /g, "");
-        ping = ping.replace("ms", "");
-        ping = Number(ping);
-        ping = Math.ceil(ping);
-        ping = String(ping);
-        ping = ping + "ms";
-        return ping;
-      }
-    }
-  }
-
-  public static CheckConfig(){
-    
+export class ConfigUtils {
+  public static check_config() {
     // ポートが範囲を超えていないか確認
     if(config.server.port > 65535){
       Logger.SystemError("ポート番号が65535より大きいです");
@@ -99,15 +52,5 @@ export class Utils {
         process.exit(1);
       }
     }
-  }
-
-  public static connect_mongodb() {
-    mongoose.connect(config.server.mongodb_url).catch((error: string) => {
-      Logger.SystemError(error);
-      Logger.SystemError("mongodbの接続中にエラーが発生しました");
-      Logger.SystemError("configの値,サーバーのアクセス制御が正しいか確認してください");
-      process.exit(1);
-    });
-    Logger.SystemInfo("データベースの接続に成功しました");
   }
 }

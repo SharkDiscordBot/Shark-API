@@ -52,36 +52,9 @@ export class run_min {
           url: config.settings.check_status.frontend_status_URL,
         }, function (front_error, front_response, front_body_data) {
 
-          // エラー分岐(エラーが起きたらdown判定にする)
-          if(bot_response.statusCode != 200){
-            if(!bot_status){
-              write_db("create", "bot", "down", "0ms", "0.0.0");
-              Logger.Debug("Success: Create Bot Status Data");
-            } else {
-              write_db("update", "bot", "down", "0ms", "0.0.0");
-              Logger.Debug("Success: Update Bot Status Data");
-            }
-            Logger.SystemError("ステータス情報の取得に失敗しました");
-            Logger.SystemError("Botサーバーが正常な動作をしていない可能性がります");
-            Logger.Debug("URL: " + config.settings.check_status.bot_status_URL + " HTTP_STATUS: " + bot_response.statusCode);
-            Logger.Debug(bot_response.statusMessage);
-          }
+          // bot_status
 
-          if(front_response.statusCode != 200){
-            if(!frontend_status){
-              write_db("create", "frontend", "down", "0ms", "0.0.0");
-              Logger.Debug("Success: Create Frontend Status Data");
-            } else {
-              write_db("update", "frontend", "down", "0ms", "0.0.0");
-              Logger.Debug("Success: Update Frontend Status Data");
-            }
-            Logger.SystemError("ステータス情報の取得に失敗しました");
-            Logger.SystemError("Webサーバーが正常な動作をしていない可能性がります");
-            Logger.Debug("URL: " + config.settings.check_status.frontend_status_URL + " HTTP_STATUS: " + front_response.statusCode);
-            Logger.Debug(front_response.statusMessage);
-          }
-          
-          if(bot_response.statusCode == 200){
+          if(!bot_error && (bot_response && bot_response.statusCode) == 200) {
             const bot_body = JSON.parse(bot_body_data);
             if(!bot_status){
               write_db("create", "bot", bot_body.status, bot_body.ping, bot_body.version);
@@ -90,9 +63,19 @@ export class run_min {
               write_db("update", "bot", bot_body.status, bot_body.ping, bot_body.version);
               Logger.Debug("Success: Update Bot Status Data");
             }
+          } else {
+            if(!bot_status){
+              write_db("create", "bot", "down", "0ms", "0.0.0");
+              Logger.Debug("Success: Create Bot Status Data (Status Get Error)");
+            } else {
+              write_db("update", "bot", "down", "0ms", "0.0.0");
+              Logger.Debug("Success: Update Bot Status Data (Status Get Error)");
+            }
+            Logger.SystemError("ステータス情報の取得に失敗しました");
+            Logger.SystemError("Botサーバーが正常な動作をしていない可能性がります");
           }
 
-          if(front_response.statusCode == 200){
+          if(!front_error && (front_response && front_response.statusCode) == 200) {
             const front_body = JSON.parse(front_body_data);
             if(!frontend_status){
               write_db("create", "frontend", front_body.status, front_body.ping, front_body.version);
@@ -101,6 +84,16 @@ export class run_min {
               write_db("update", "frontend", front_body.status, front_body.ping, front_body.version);
               Logger.Debug("Success: Update Frontend Status Data");
             }
+          } else {
+            if(!frontend_status){
+              write_db("create", "frontend", "down", "0ms", "0.0.0");
+              Logger.Debug("Success: Create Frontend Status Data (Status Get Error)");
+            } else {
+              write_db("update", "frontend", "down", "0ms", "0.0.0");
+              Logger.Debug("Success: Update Frontend Status Data (Status Get Error)");
+            }
+            Logger.SystemError("ステータス情報の取得に失敗しました");
+            Logger.SystemError("Webサーバーが正常な動作をしていない可能性がります");
           }
         });
       });

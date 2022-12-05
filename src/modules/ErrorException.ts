@@ -7,7 +7,7 @@ export class HttpException {
     res.header("Content-Type", "application/json; charset=utf-8");
     const now_time = new Date().toLocaleString();
     const message = {"time": now_time, "status": "error", "http_status": 400, "message": "BadRequest"};
-    res.send(message);
+    res.json(message);
   }
 
   public static Unauthorized(res: express.Response) {
@@ -15,7 +15,7 @@ export class HttpException {
     res.header("Content-Type", "application/json; charset=utf-8");
     const now_time = new Date().toLocaleString();
     const message = {"time": now_time, "status": "error", "http_status": 401, "message": "Unauthorized"};
-    res.send(message);
+    res.json(message);
   }
 
   public static Forbidden(res: express.Response) {
@@ -23,7 +23,7 @@ export class HttpException {
     res.header("Content-Type", "application/json; charset=utf-8");
     const now_time = new Date().toLocaleString();
     const message = {"time": now_time, "status": "error", "http_status": 403, "message": "Forbidden"};
-    res.send(message);
+    res.json(message);
   }
 
   public static NotFound(res: express.Response) {
@@ -31,7 +31,7 @@ export class HttpException {
     res.header("Content-Type", "application/json; charset=utf-8");
     const now_time = new Date().toLocaleString();
     const message = {"time": now_time, "status": "error", "http_status": 404, "message": "NotFound"};
-    res.send(message);
+    res.json(message);
   }
 
   public static PreconditionFailed(res: express.Response) {
@@ -39,7 +39,7 @@ export class HttpException {
     res.header("Content-Type", "application/json; charset=utf-8");
     const now_time = new Date().toLocaleString();
     const message = {"time": now_time, "status": "error", "http_status": 412, "message": "Precondition Failed"};
-    res.send(message);
+    res.json(message);
   }
 
   public static InternalServerError(res: express.Response) {
@@ -47,6 +47,6 @@ export class HttpException {
     res.header("Content-Type", "application/json; charset=utf-8");
     const now_time = new Date().toLocaleString();
     const message = {"time": now_time, "status": "error", "http_status": 500, "message": "InternalServerError"};
-    res.send(message);
+    res.json(message);
   }
 }
