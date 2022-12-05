@@ -10,24 +10,26 @@ import * as mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import * as swaggerUi from "swagger-ui-express";
 import * as YAML from "yamljs";
-import { Utils } from "@/modules/Utils";
+import { Utils } from "@/utils/Utils";
 import * as system from "@root/system.json";
 import { run_min } from "@/modules/CronSystem";
 import * as cron from "node-cron"; 
+import { ConfigUtils } from "@/utils/ConfigUtils"
+import * as SystemUtil from "@/utils/System";
 
 // DB_Model
 import SystemModel from "@/schema/system";
 //end
 
 // routes
-import api_v1 from "@/routes/v1";
+import api_v1 from "@/routes/v1Router";
 import licenses from "@/routes/licenses";
 // end
 
 Logger.SystemInfo("しゃーくBot Backend Server");
 
 // configの値をチェック
-Utils.CheckConfig();
+ConfigUtils.check_config();
 
 Utils.connect_mongodb();
 
@@ -165,8 +167,8 @@ if(system.beta == true){
   Logger.SystemInfo("現在のバージョンは安定版です");
 }
 Logger.SystemInfo("使用中のNodejsバージョン: " + process.version);
-Logger.SystemInfo("使用中のOS: " + Utils.get_os());
-if(Utils.get_os() == "windows"){
+Logger.SystemInfo("使用中のOS: " + SystemUtil.Info.OS());
+if(SystemUtil.Info.OS() == "windows"){
   Logger.SystemWarn("Windowsでの実行は推奨しません。詳細はドキュメントをご確認ください");
 }
 Logger.SystemInfo("=======================================");

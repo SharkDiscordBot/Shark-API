@@ -1,16 +1,26 @@
 import * as express from "express";
 import * as Error from "@/modules/ErrorException";
+
+// routes 
 import info from "@/routes/v1/system/info";
-import test from "@/routes/v1/system/test";
 import status from "@/routes/v1/system/status";
+// end
 const router = express.Router();
 
 router.get("/", (req, res)  => {
   Error.HttpException.NotFound(res);
 });
 
-router.use("/info", info);
-router.use("/test", test);
-router.use("/status", status);
+router.post("/", (req, res)  => {
+  Error.HttpException.NotFound(res);
+});
+
+router.get("/status", (req, res) => {
+  status(req, res);
+});
+
+router.get("/info", (req, res) => {
+  info(req, res);
+});
 
 export default router;
