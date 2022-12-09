@@ -23,6 +23,26 @@ chmod 600 configs/config.json
 | port | Number | APIサーバーのポート番号を指定します |
 | mongodb_url | String | MongoDBのURLを指定します * ここで指定したデータベースにユーザー情報などが書き込まれます |
 
+### ssl
+
+| key | Type | 説明 |
+| ---- | ---- | ------ |
+| enable | Boolen | HTTPSサーバーの起動有無を切り替えます |
+| key_path | String | 証明書ファイルのパスを設定します |
+| cert_path | String | 証明書ファイルのパスを設定します |
+| ssl_port | number | SSLサーバーのポートを設定します(上記で設定したポート番号と同じには設定できません)| 
+
+### auth
+
+> ** WARNING: ** ここに設定する値は必ずランダムな文字を入力してください
+>　また、この設定に使用した文字列は厳重に管理してください
+
+| key | Type | 説明 |
+| ---- | ---- | ------ |
+| auth_id | String | APIのユーザーIDを設定します。英数字64文字以上を推奨します |
+| auth_key | String | 暗号化キーを設定します。英数字32文字で入力してください |
+ 
+
 ## settings
 
 | key | Type | 説明 |

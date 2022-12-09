@@ -12,16 +12,18 @@ info:
   version: 0.0.1(beta)
   
 servers:
-  - url: http://localhost:8080/v1
-    description: (default, v1)
-  - url: https://dev-api.purapetino.com/v1
-    description: (開発用, v1)
+  - url: https://localhost:8081
+    description: (default)
+  - url: https://dev-api.purapetino.com
+    description: (開発用)
 tags:
   - name: System
     description: APIシステムの情報の取得など
+  - name: その他
+    description: APIへのログインなど
   
 paths:
-  /systems/info:
+  /v1/systems/info:
     get:
       tags:
         - System
@@ -61,19 +63,13 @@ paths:
                   status: "success"
                   http_status: 200
                   message: "none"
-        404:
-          description: "失敗時レスポンス"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFound'
         500:
           description: "サーバーエラーレスポンス"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /systems/status:
+  /v1/systems/status:
     get:
       tags:
         - System
@@ -150,20 +146,139 @@ paths:
                   status: "success"
                   http_status: 200
                   message: "none"
-        404:
-          description: "失敗時レスポンス"
+  /v1/systems/auth-check:
+    get:
+      tags:
+        - System
+      summary: JWTトークンの有効期限確認
+      description: JWTトークンの有効期限を確認します(EXPの確認のみ,JWT自体の検証はしていません)
+      operationId: auth-check
+      security:
+        -  API_Auth: []
+      responses:
+        200:
+          description: "使用可能レスポンス"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NotFound'
+                type: "object"
+                properties:
+                  token:
+                    type: "string"
+                    description: "ok,warn,ng のいずれかを返却します \n (ok...1分以上使用可能 warn...1分以内に使用不可 ng...使用不可)"
+                  time: 
+                    type: "string"
+                    description: "処理開始時間"
+                  status:
+                    type: "string"
+                  http_status: 
+                    type: "number"
+                  message:
+                    type: "string"
+                example:
+                  token: "ok"
+                  time: "2022/11/23 21:16:19"
+                  status: "success"
+                  http_status: 200
+                  message: "none"
+        400:
+          description: "ヘッダー未設定時"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
         500:
-          description: "サーバーエラーレスポンス"
+          description: "JWT解読失敗時"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
 
+# その他
+  /login:
+    post:
+      tags:
+        - その他
+      summary: APIサーバーへログインをします
+      description: APIへログインし、JWTトークンを返却します
+      operationId: login        
+
+      requestBody:
+        description: "apiキーを入力してください"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                api_key:
+                  type: "string"
+                  example: "d7hecn..."
+                  description: "初回起動時に表示されたAPIキーを入力します"
+                api_id:
+                  type: "string"
+                  example: "icabco..."
+                  description: "configに入力されているIDを入力します"
+      
+      responses:
+        200:
+          description: "ログイン成功時レスポンス"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  auth: 
+                    type: "string"
+                    description: "成功時「ok」を返却します *成功時以外表示されません"
+                  id:
+                    type: "string"
+                    description: "JWTIDを返却します(認証に使用することはありません。) *成功時以外表示されません"
+                  token:
+                    type: "string"
+                    description: "JWTトークンです この値をヘッダーに登録してください *成功時以外表示されません "
+                  time: 
+                    type: "string"
+                    description: "処理開始時間"
+                  status:
+                    type: "string"
+                  http_status: 
+                    type: "number"
+                  message:
+                    type: "string"
+                example:
+                  auth: "ok"
+                  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                  id: "eyYWo6VYHMwyHIYyMFh4txMi"
+                  time: "2022/11/23 21:16:19"
+                  status: "success"
+                  http_status: 200
+                  message: "none"
+        400:
+          description: "値が設定されていない場合"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        401:
+          description: "api_key, api_id のどちらかまたは両方が不正な場合"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        500:
+          description: "サーバー処理失敗時"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
 components:
+  securitySchemes:
+    API_Auth:
+      type: apiKey
+      in: header
+      name: authorization
+
   schemas:
     NotFound:
       type: "object"
@@ -198,6 +313,23 @@ components:
         status: "error"
         http_status: 400
         message: "BadRequest"
+
+    Unauthorized:
+      type: "object"
+      properties:
+        time: 
+          type: "string"
+        status:
+          type: "string"
+        http_status: 
+          type: "number"
+        message:
+          type: "string"
+      example:
+        time: "2022/11/23 21:16:19"
+        status: "error"
+        http_status: 401
+        message: "Unauthorized"
      
     Forbidden:
       type: "object"

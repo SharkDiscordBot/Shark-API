@@ -19,3 +19,9 @@ logs/
 
 # test files
 test/
+
+# SSL keys
+certkeys/
+
+cert_server.key
+cert_server.csr
