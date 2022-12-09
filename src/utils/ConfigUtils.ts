@@ -37,6 +37,14 @@ export class ConfigUtils {
       }
     }
 
+    // APIの暗号鍵の文字数制限
+    if(config.server.auth.auth_key.length > 32) {
+      Logger.SystemError("API認証鍵は32文字以下である必要があります");
+      process.exit(1);
+    } else {
+      Logger.Debug("文字数: " + config.server.auth.auth_key.length);
+    }
+
     // mongoDBのURLが正しいか確認
     if(!config.server.mongodb_url.startsWith("mongodb")){
       Logger.SystemError("mongoDBのURLが正しくありません。configを修正してください");

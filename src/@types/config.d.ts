@@ -9,6 +9,10 @@ declare module "@configs/config.json" {
           cert_path: string;
           ssl_port: number;
         }
+        auth: {
+          auth_id: string;
+          auth_key: string;
+        }
       },
       settings: {
         debug_mode: boolean;

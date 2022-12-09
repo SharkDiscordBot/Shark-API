@@ -8,6 +8,10 @@
       "key_path": "certkeys/cert_server.key",
       "cert_path": "certkeys/cert_server.crt",
       "ssl_port": 7070
+    },
+    "auth": {
+      "auth_id": "api_id",
+      "auth_key": "pass_key"
     }
   },
   "settings": {
