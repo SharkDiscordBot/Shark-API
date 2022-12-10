@@ -13,7 +13,7 @@ import * as YAML from "yamljs";
 import { Utils } from "@/utils/Utils";
 import * as system from "@root/system.json";
 import { run_min } from "@/modules/CronSystem";
-import * as cron from "node-cron"; 
+import * as cron from "node-cron";
 import { ConfigUtils } from "@/utils/ConfigUtils";
 import * as SystemUtil from "@/utils/System";
 import * as https from "https";
@@ -97,20 +97,20 @@ app.use(helmet());
 
 if(config.maintenance_mode.enable != true){
 // API docs
-const swagger_config = YAML.load("swagger.yaml");
+  const swagger_config = YAML.load("swagger.yaml");
 
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swagger_config));
-// route
-app.use("/v1", api_v1);
-app.use("/licenses", licenses);
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swagger_config));
+  // route
+  app.use("/v1", api_v1);
+  app.use("/licenses", licenses);
 
-app.post("/login", (req, res) => {
-  login(req,res);
-});
+  app.post("/login", (req, res) => {
+    login(req,res);
+  });
 
-app.use(function(req, res) {
-  Error.HttpException.NotFound(res);
-});
+  app.use(function(req, res) {
+    Error.HttpException.NotFound(res);
+  });
 } else {
   Logger.SystemWarn("メンテナンスモードが有効です");
   app.use(function(req, res) {
@@ -141,7 +141,7 @@ async function SystemData_DB_write() {
   // commit hashなどを取得
   const hash_cmd = exec.execSync("git show --format=%H --no-patch");
   const local_branch_cmd = exec.execSync("git rev-parse --abbrev-ref HEAD");
-  
+
   // Stringにし改行コードを削除
   let hash = hash_cmd.toString();
   hash = hash.replace(/\r?\n/g, "");
@@ -198,16 +198,16 @@ async function check_user() {
       iv: iv
     });
     write_data.save()
-    .catch((err) => {
-      Logger.SystemError("DBの書き込みに失敗しました");
-      Logger.SystemError("" + err);
-    });
+      .catch((err) => {
+        Logger.SystemError("DBの書き込みに失敗しました");
+        Logger.SystemError("" + err);
+      });
 
     // ログファイルに残したくないのでconsole.logで表示
     Logger.SystemInfo("APIキーはSharkBotなどでの設定などで必要です");
     console.log("APIキー: \n" + api_key);
     Logger.SystemInfo("上記の内容は再度表示されません。メモを行ってください。");
-    
+
   }
   return "success";
 }
