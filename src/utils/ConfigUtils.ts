@@ -11,7 +11,7 @@ export class ConfigUtils {
     } else {
       Logger.Debug("Passing: Port Number");
     }
-    
+
     if(config.server.ssl.ssl_port > 65535) {
       Logger.SystemError("ポート番号が65535より大きいです");
       process.exit(1);
@@ -25,7 +25,7 @@ export class ConfigUtils {
     } else {
       Logger.Debug("Passing: Port Number Check");
     }
-    
+
     if(config.server.ssl.enable == true) {
       if(!fs.existsSync(config.server.ssl.key_path)) {
         Logger.SystemError("SSL証明書が存在しません。ファイルのパスを確認してください");
