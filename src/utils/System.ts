@@ -7,11 +7,11 @@ export class Info {
     if(os.platform() == "win32"){
       return "windows";
     }
-    
+
     if(os.platform() == "darwin"){
       return "mac";
     }
-        
+
     if(os.platform() == "linux"){
       return "linux";
     }
@@ -34,7 +34,8 @@ export class Command {
         return "0ms";
       } else {
         ping_cmd = child.execSync("ping -c 1 " + server_address + " | grep time").toString();
-        ping_cat = ping_cmd.indexOf("time"); 
+        Logger.Debug("command data: " + ping_cmd);
+        ping_cat = ping_cmd.indexOf("time");
         ping = ping_cmd.substring(ping_cat + 5);
         ping = ping.replace(/\r?\n/g, "");
         ping = ping.replace(/ /g, "");
