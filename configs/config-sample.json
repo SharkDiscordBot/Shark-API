@@ -11,7 +11,7 @@
     },
     "auth": {
       "auth_id": "api_id",
-      "auth_key": "pass_key"
+      "auth_key": "api_key"
     }
   },
   "settings": {
