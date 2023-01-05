@@ -26,7 +26,13 @@ jobs:
         ## ライセンスチェック
 
         下記のライセンスのパッケージは含まれていませんでした
-        `GPL`,`GPL-2.0`,`GPL-3.0`,`LGPL`,`LGPL-3.0`,`AGPL`,`NGPL`
+        GPL
+        GPL-2.0
+        GPL-3.0
+        LGPL
+        LGPL-3.0
+        AGPL
+        NGPL
         EOF
     - name: pull_request_comment
       env:
