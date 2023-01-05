@@ -1,9 +1,9 @@
-name: check code(Nodejs v18)
+name: license check
 
 on: pull_request
 
 jobs:
-  check:
+  check_license:
     runs-on: ubuntu-latest
     permissions:
       contents: read
