@@ -32,6 +32,7 @@ import licenses from "@/routes/licenses";
 import login from "@/routes/login";
 // end
 
+Logger.Debug("module loading success");
 Logger.SystemInfo("しゃーくBot API Server");
 
 // configの値をチェック
@@ -180,14 +181,14 @@ cron.schedule("* * * * *", () => {
 });
 
 // APIキーを発行
-async function check_user() {
+async function check_api_key() {
   const auth_user = await AuthModel.findOne({ _id: config.server.auth.auth_id});
   if(!auth_user) {
     const list = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
     const key = await Array.from(crypto.randomFillSync(new Uint8Array(48))).map((n)=>list[n%list.length]).join("");
     const iv = await Array.from(crypto.randomFillSync(new Uint8Array(16))).map((n)=>list[n%list.length]).join("");
 
-    const hash = await bcrypt.hashSync(key, 15);
+    const hash = await bcrypt.hashSync(key, 5);
     Logger.SystemInfo(key);
     const api_key_cipher = await crypto.createCipheriv("aes-256-cbc", config.server.auth.auth_key, iv);
     const api_key = await api_key_cipher.update(key , "utf-8", "hex") + api_key_cipher.final("hex");
@@ -212,9 +213,9 @@ async function check_user() {
   return "success";
 }
 
-check_user();
-
-export default app;
+Logger.Debug("check auth data");
+check_api_key();
+Logger.Debug("success: check auth data");
 
 // システムの詳細を表示
 Logger.SystemInfo("======== しゃーくAPIServer ========");
@@ -230,3 +231,5 @@ if(SystemUtil.Info.OS() == "windows"){
   Logger.SystemWarn("Windowsでの実行は推奨しません。詳細はドキュメントをご確認ください");
 }
 Logger.SystemInfo("=======================================");
+
+//export default app;

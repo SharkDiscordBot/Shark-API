@@ -1,0 +1,41 @@
+name: license check
+
+on: pull_request
+
+jobs:
+  check_license:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: nodejs Setup v18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: CI Setup
+      run: npm ci
+
+    - name: run check License
+      run: bash check_license.sh
+    - name: Create comments
+      run: |
+        cat << EOF > comments
+        ## ライセンスチェック
+
+        下記のライセンスのパッケージは含まれていませんでした
+        GPL
+        GPL-2.0
+        GPL-3.0
+        LGPL
+        LGPL-3.0
+        AGPL
+        NGPL
+        EOF
+    - name: pull_request_comment
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        URL: ${{ github.event.pull_request.html_url }}
+      run: gh pr comment -F ./comments "${URL}"

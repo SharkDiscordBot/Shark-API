@@ -30,7 +30,7 @@ chmod 600 configs/config.json
 | enable | Boolen | HTTPSサーバーの起動有無を切り替えます |
 | key_path | String | 証明書ファイルのパスを設定します |
 | cert_path | String | 証明書ファイルのパスを設定します |
-| ssl_port | number | SSLサーバーのポートを設定します(上記で設定したポート番号と同じには設定できません)| 
+| ssl_port | number | SSLサーバーのポートを設定します(上記で設定したポート番号と同じには設定できません)|
 
 ### auth
 
@@ -41,14 +41,14 @@ chmod 600 configs/config.json
 | ---- | ---- | ------ |
 | auth_id | String | APIのユーザーIDを設定します。英数字64文字以上を推奨します |
 | auth_key | String | 暗号化キーを設定します。英数字32文字で入力してください |
- 
+
 
 ## settings
 
 | key | Type | 説明 |
 | ---- | ---- | ------ |
 | debug_mode | Boolen | デバッグモードの有効,無効を切り替えます |
-| debug_logger | Boolen | この設定を有効にすると詳細なログを出力します |
+| debug_logger | Boolen | この設定を有効にするとコンソールに詳細な出力を行います |
 
 ### check_status
 

@@ -13,7 +13,7 @@ export class Utils {
     });
     Logger.SystemInfo("データベースの接続に成功しました");
   }
-  
+
   public static decode_jwt_token(token: string) {
     return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
   }

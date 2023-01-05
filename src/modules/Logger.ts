@@ -1,46 +1,71 @@
 import config = require("@configs/config.json");
 import * as log4js from "log4js";
+
 log4js.configure({
   "appenders": {
-    "system": { 
+    "system": {
       "type": "dateFile",
-      "filename": "logs/system.log" 
+      "filename": "logs/system.log",
+      "pattern": "yyyy-MM-dd",
+      "compress": true,
+      "filesToKeep": 4
     },
-    "access": { 
+    "access": {
       "type": "dateFile",
-      "filename": "logs/access.log" 
+      "filename": "logs/access.log",
+      "pattern": "yyyy-MM-dd",
+      "compress": true,
+      "filesToKeep": 4
     },
-    "error": { 
+    "error": {
       "type": "dateFile",
-      "filename": "logs/error.log" 
+      "filename": "logs/error.log",
+      "pattern": "yyyy-MM-dd",
+      "compress": true,
+      "filesToKeep": 4
+    },
+    "debug": {
+      "type": "dateFile",
+      "filename": "logs/debug.log",
+      "pattern": "yyyy-MM-dd",
+      "compress": true,
+      "filesToKeep": 4
     },
     "console": {
       "type": "console"
     }
   },
   "categories": {
-    "default": { 
-      "appenders": ["access", "console"], 
-      "level": "all" 
+    "default": {
+      "appenders": ["access", "console"],
+      "level": "all"
     },
-    "access": { 
-      "appenders": ["access", "console"], 
-      "level": "all" 
+    "access": {
+      "appenders": ["access", "console"],
+      "level": "all"
     },
-    "system": { 
-      "appenders": ["system", "console"], 
-      "level": "all" 
+    "system": {
+      "appenders": ["system", "console"],
+      "level": "all"
     },
-    "error": { 
-      "appenders": ["error", "console", "system"], 
-      "level": "WARN" 
+    "error": {
+      "appenders": ["error", "console", "system"],
+      "level": "WARN"
     },
+    "console_debug": {
+      "appenders": ["debug", "console"],
+      "level": "all"
+    },
+    "debug": {
+      "appenders": ["debug"],
+      "level": "all"
+    }
   }
 });
 
 
 export class Logger{
-  
+
   public static SystemInfo(msg: string): void {
     const logger = log4js.getLogger("system");
     logger.info(msg);
@@ -75,11 +100,13 @@ export class Logger{
   // debugLogger
   public static Debug(msg: string): void {
 
+    let logger;
     if(config.settings.debug_logger == false){
-      return;
+      logger = log4js.getLogger("debug");
+      logger.debug(msg);
+    } else {
+      logger = log4js.getLogger("console_debug");
+      logger.debug(msg);
     }
-    
-    const logger = log4js.getLogger("system");
-    logger.debug(msg);
   }
 }
