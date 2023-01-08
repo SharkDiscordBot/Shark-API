@@ -13,9 +13,9 @@
 
 下記の環境で動作確認を行っています
 
-- MacOS 13.0.1 (Intel)
-- kubernetes v1.25.3
-- Nodejs v18.12.1
+- MacOS 13.1 (Intel)
+- kubernetes v1.26.0
+- Nodejs v18.13.0
 
 ## 推奨動作確認
 
@@ -40,7 +40,7 @@ Windowsで実行される際はWSLを使用されることを推奨します。W
 
 ### APIキーについて
 
-初回起動時configに基づきAPIキーを生成しコンソールに出力します。もしAPIキーを再度表示する場合configの`auth_id`を変更すると再生成されます。(その際には`auth_key`もなるべく変更してください)。再生生後DBにアクセスし、元のデータを削除してください
+初回起動時configに基づきAPIキーを生成しコンソールに出力します。APIキーを再発行場合configの`auth_id`を変更すると再生成されます。(その際には`auth_key`もなるべく変更してください)、再生成後DBにアクセスし、元のデータ(元のauth_idのデータ)を削除してください
 
 ### すべてのリクエストに対して返却されるデータ
 
@@ -55,8 +55,16 @@ Windowsで実行される際はWSLを使用されることを推奨します。W
 
 APIサーバーを起動し `/docs` を確認するか `swagger.yaml` をSwaggerEditorなどでご確認ください
 
-## Licence
+## 著作権情報
 
+### パッケージ類
+
+仮データ: 
+[JSON_DATA](./views/public/licenses.json)
+
+(見やすいデータは現在準備中です)
+
+### Shark-API
 [MIT Licence](./LICENCE)
 
 ```
