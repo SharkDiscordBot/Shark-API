@@ -1,6 +1,17 @@
 # しゃーく API
 
 しゃーくBotのAPIシステム
+## Status
+
+### develop
+
+[![check code(Nodejs v18)](https://github.com/SharkDiscordBot/Shark-API/actions/workflows/check-v18.yml/badge.svg)](https://github.com/SharkDiscordBot/Shark-API/actions/workflows/check-v18.yml)
+[![license check](https://github.com/SharkDiscordBot/Shark-API/actions/workflows/GPL_check.yaml/badge.svg)](https://github.com/SharkDiscordBot/Shark-API/actions/workflows/GPL_check.yaml)
+
+### main
+
+[![check code(Nodejs v18)](https://github.com/SharkDiscordBot/Shark-API/actions/workflows/check-v18.yml/badge.svg?branch=main)](https://github.com/SharkDiscordBot/Shark-API/actions/workflows/check-v18.yml)
+[![license check](https://github.com/SharkDiscordBot/Shark-API/actions/workflows/GPL_check.yaml/badge.svg?branch=main)](https://github.com/SharkDiscordBot/Shark-API/actions/workflows/GPL_check.yaml)
 
 ## 前提要件
 
@@ -29,12 +40,12 @@
 
 Windowsで実行される際はWSLを使用されることを推奨します。WSLを使用されない場合下記の制約が発生します
 
-- APIサーバー内で測定するレイテンシが常に0msとなります(`/v1/system/status` など)
+- APIサーバー内で測定するレイテンシが常に0msとなります(`/v1/systems/status` など)
 
 ## SSL(TLS)について
 
 本APIサーバー運用時には暗号化通信を行うことを推奨します。 <br>
-証明書はInit-SSL.shを実行することでcertkeysディレクトリに作成されます(Init-SSL.shを使用し証明書を作成される場合、ポート番号及び有効化切り替え以外のSSL設定は変更不要です)
+証明書はInit-SSL.shを実行することでcertkeysディレクトリに作成されます(Init-SSL.shを使用し証明書を作成する場合はSSl証明書のパスを変更する必要はありません)
 
 ## API Docs
 
@@ -48,7 +59,7 @@ Windowsで実行される際はWSLを使用されることを推奨します。W
 | ---- | ---- | ------ |
 | status | String | 処理が成功したかどうかを返却します |
 | time | String | 処理開始時刻を返却します |
-| http_status  | int | HTTPステータスコードを返却します |
+| http_status  | Number | HTTPステータスコードを返却します |
 | message | String | メッセージを返却します。返却する内容がない場合noneが返却されます |
 
 ### その他ドキュメント
@@ -59,10 +70,11 @@ APIサーバーを起動し `/docs` を確認するか `swagger.yaml` をSwagger
 
 ### パッケージ類
 
-仮データ: 
+仮データ:
 [JSON_DATA](./views/public/licenses.json)
 
-(見やすいデータは現在準備中です)
+表(データが巨大です):
+[表示](./package-licenses.md)
 
 ### Shark-API
 [MIT Licence](./LICENCE)
@@ -70,7 +82,7 @@ APIサーバーを起動し `/docs` を確認するか `swagger.yaml` をSwagger
 ```
 MIT Licence
 
-Copyright (c) 2022 purapetino 
+Copyright (c) 2022 purapetino
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
