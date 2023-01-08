@@ -10,7 +10,8 @@
     "build": "tsc",
     "run_startup_utils": "node utils/remove_dist_config",
     "compile_file_run": "node dist/src/app",
-    "update_license": "license-checker --production --direct --customPath ./list-license-format.json --json --out ./views/public/licenses.json"
+    "update_license": "license-checker --production --direct --customPath ./list-license-format.json --json --out ./views/public/licenses.json",
+    "production": "npm run build && npm run run_startup_utils && npm run compile_file_run"
   },
   "repository": {
     "type": "git",
