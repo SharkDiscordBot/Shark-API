@@ -27,7 +27,7 @@ chmod 600 configs/config.json
 
 | key | Type | 説明 |
 | ---- | ---- | ------ |
-| enable | Boolen | HTTPSサーバーの起動有無を切り替えます |
+| enable | Boolean | HTTPSサーバーの起動有無を切り替えます |
 | key_path | String | 証明書ファイルのパスを設定します |
 | cert_path | String | 証明書ファイルのパスを設定します |
 | ssl_port | number | SSLサーバーのポートを設定します(上記で設定したポート番号と同じには設定できません)|
@@ -47,8 +47,9 @@ chmod 600 configs/config.json
 
 | key | Type | 説明 |
 | ---- | ---- | ------ |
-| debug_mode | Boolen | デバッグモードの有効,無効を切り替えます |
-| debug_logger | Boolen | この設定を有効にするとコンソールに詳細な出力を行います |
+| debug_mode | Boolean | デバッグモードの有効,無効を切り替えます |
+| debug_logger | Boolean | この設定を有効にするとコンソールに詳細な出力を行います |
+| custom_logfile_name | Boolean | この設定を有効にするとログファイルに名前を追加します(別途`LOG_NAME`を環境変数として定義してください)
 
 ### check_status
 
@@ -56,12 +57,12 @@ chmod 600 configs/config.json
 | ---- | ---- | ------ |
 | frontend_status_URL | String | フロントエンド([Shark-Frontend](https://github.com/SharkDiscordBot/Shark-Frontend)のステータス情報URLを指定します) ) |
 | frontend_status_URL | String | ([Shark-Bot](https://github.com/SharkDiscordBot/Shark-Bot)のステータス情報URLを指定します) ) |
-| enable | Boolen | この設定をfalseにするとステータスの参照を行いません(本番構成では有効にすることを推奨します) |
-| enable | Boolen | この設定はステータスの参照を行わない場合のステータスを設定します(up, warn, downのいずれか　) |
+| enable | Boolean | この設定をfalseにするとステータスの参照を行いません(本番構成では有効にすることを推奨します) |
+| enable | Boolean | この設定はステータスの参照を行わない場合のステータスを設定します(up, warn, downのいずれか　) |
 
 ## maintenance
 
 | key | Type | 説明 |
 | ---- | ---- | ------ |
-| enable | Boolen | メンテナンスモードの有効,無効無効を切り替えます |
+| enable | Boolean | メンテナンスモードの有効,無効無効を切り替えます |
 | res_status | Number | メンテナンスモード有効時に返却するhttpステータスコードを指定します |

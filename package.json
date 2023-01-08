@@ -10,7 +10,8 @@
     "build": "tsc",
     "run_startup_utils": "node utils/remove_dist_config",
     "compile_file_run": "node dist/src/app",
-    "update_license": "license-checker --production --direct --customPath ./list-license-format.json --json --out ./views/public/licenses.json"
+    "update_license": "license-checker --production --direct --customPath ./list-license-format.json --json --out ./views/public/licenses.json",
+    "production": "npm run build && npm run run_startup_utils && npm run compile_file_run"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,7 @@
     "fs": "^0.0.1-security",
     "helmet": "^6.0.0",
     "https": "^1.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "license-checker": "^25.0.1",
     "log4js": "^6.7.0",
     "module-alias": "^2.2.2",

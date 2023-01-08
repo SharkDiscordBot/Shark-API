@@ -17,6 +17,7 @@
   "settings": {
     "debug_mode": true,
     "debug_logger": false,
+    "custom_logfile_name": false,
     "check_status": {
       "frontend_status_URL": "http://your_shark_frontend_addr/api/v1/status",
       "bot_status_URL": "http://your_shark_frontend_addr/api/v1/status",
