@@ -17,6 +17,7 @@ declare module "@configs/config.json" {
       settings: {
         debug_mode: boolean;
         debug_logger: boolean;
+        custom_logfile_name: boolean;
         check_status: {
           frontend_status_URL: string,
           bot_status_URL: string,
